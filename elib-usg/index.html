@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0A0A0F">
+
+    <title>Portal Layanan | Perpustakaan Universitas Sunan Gresik</title>
+    <meta name="description" content="Portal Layanan Digital Perpustakaan Universitas Sunan Gresik. Akses cepat ke OPAC, Koleksi Digital, E-Journal, dan Repositori akademik.">
+    <meta name="keywords" content="perpustakaan USG, Universitas Sunan Gresik, OPAC, koleksi digital, e-journal, repositori">
+    <meta name="author" content="ZanDev">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Portal Layanan | Perpustakaan USG">
+    <meta property="og:description" content="Akses cepat ke OPAC, Koleksi Digital, dan E-Journal Perpustakaan Universitas Sunan Gresik.">
+    <meta property="og:locale" content="id_ID">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Portal Layanan | Perpustakaan USG">
+    <meta name="twitter:description" content="Akses cepat ke OPAC, Koleksi Digital, dan E-Journal.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest" defer></script>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-inner">
+            <a href="#beranda" class="logo" aria-label="USG Library Beranda">
+                <div class="logo-mark">
+                    <i data-lucide="library" aria-hidden="true"></i>
+                </div>
+                <div class="logo-text">
+                    <span class="name">USG Library</span>
+                    <span class="sub">elib.usg.ac.id</span>
+                </div>
+            </a>
+            <nav class="nav" aria-label="Navigasi utama">
+                <a href="#beranda">Beranda</a>
+                <a href="#layanan">Layanan</a>
+                <a href="#keanggotaan">Keanggotaan</a>
+                <a href="#tentang">Tentang</a>
+            </nav>
+            <div class="header-right">
+                <a href="https://lib.usg.ac.id/login" class="btn btn-ghost">Login</a>
+                <a href="#daftar" class="btn btn-primary">
+                    Daftar
+                    <i data-lucide="arrow-right" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main -->
+    <main class="main-section" id="beranda">
+        <div class="container">
+
+            <!-- Top Row: Hero + Status + Stats -->
+            <div class="bento">
+                <!-- Hero Card with Search -->
+                <div class="card hero-card no-hover col-8 row-2">
+                    <div class="hero-content">
+                        <span class="hero-tag">
+                            <i data-lucide="sparkles" aria-hidden="true"></i>
+                            Portal Layanan Digital
+                        </span>
+                        <h1>Akses pengetahuan,<br><span class="accent">kapan saja, di mana saja.</span></h1>
+                        <p class="subtitle">Telusuri ribuan koleksi buku, jurnal, dan repositori akademik Universitas Sunan Gresik dalam satu portal terpadu.</p>
+
+                        <form class="search-bar" role="search" onsubmit="event.preventDefault(); handleSearch();">
+                            <select aria-label="Kategori pencarian" id="search-category">
+                                <option value="all">Semua</option>
+                                <option value="title">Judul</option>
+                                <option value="author">Penulis</option>
+                                <option value="isbn">ISBN</option>
+                            </select>
+                            <input type="text" placeholder="Cari buku, jurnal, atau topik..." aria-label="Kata kunci" id="search-input">
+                            <button type="submit" aria-label="Cari">
+                                <i data-lucide="search" aria-hidden="true"></i>
+                                <span>Cari</span>
+                            </button>
+                        </form>
+
+                        <div class="quick-tags">
+                            <span class="quick-label">Populer:</span>
+                            <a href="#" class="quick-tag">Manajemen</a>
+                            <a href="#" class="quick-tag">Hukum Islam</a>
+                            <a href="#" class="quick-tag">Pendidikan</a>
+                            <a href="#" class="quick-tag">Teknik</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Status Card with Live Clock -->
+                <div class="card status-card no-hover col-4">
+                    <div class="status-header">
+                        <span class="status-badge" id="status-badge">
+                            <span class="status-dot"></span>
+                            <span id="status-text">Memuat...</span>
+                        </span>
+                        <i data-lucide="clock" class="status-icon" aria-hidden="true"></i>
+                    </div>
+                    <div class="status-body">
+                        <div class="clock mono" id="live-clock">--:--</div>
+                        <div class="clock-meta">
+                            <span id="live-date">Memuat...</span>
+                            <span id="close-info" class="dim">—</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Live -->
+                <div class="card stats-live no-hover col-4">
+                    <span class="label">Total Koleksi</span>
+                    <div class="stats-live-body">
+                        <div class="number mono" id="counter-books">0</div>
+                        <span class="sub">+147 koleksi bulan ini</span>
+                    </div>
+                    <i data-lucide="book-marked" class="stats-bg-icon" aria-hidden="true"></i>
+                </div>
+            </div>
+
+            <!-- Section 01: Layanan Utama -->
+            <section class="services-section" id="layanan">
+                <div class="section-title">
+                    <h2><span class="num">01</span>Layanan Utama</h2>
+                    <p>Pilih layanan yang Anda butuhkan</p>
+                </div>
+
+                <div class="bento">
+                    <!-- Featured: Koleksi Digital -->
+                    <a href="#" class="card featured-card col-6 row-2">
+                        <span class="badge">
+                            <i data-lucide="star" aria-hidden="true"></i>
+                            Unggulan
+                        </span>
+                        <div class="featured-icon">
+                            <i data-lucide="cloud-lightning" aria-hidden="true"></i>
+                        </div>
+                        <div class="featured-content">
+                            <h3>Koleksi Digital</h3>
+                            <p>Akses ribuan e-book, jurnal internasional, dan database akademik premium kapan saja, di mana saja.</p>
+                            <div class="featured-stats">
+                                <div class="featured-stat">
+                                    <div class="num mono">1.2K+</div>
+                                    <div class="label">E-Books</div>
+                                </div>
+                                <div class="featured-stat">
+                                    <div class="num mono">12</div>
+                                    <div class="label">Database</div>
+                                </div>
+                                <div class="featured-stat">
+                                    <div class="num mono">3.2K+</div>
+                                    <div class="label">Skripsi</div>
+                                </div>
+                            </div>
+                            <span class="cta">
+                                Jelajahi sekarang
+                                <i data-lucide="arrow-right" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                    </a>
+
+                    <!-- E-Journal -->
+                    <a href="#" class="card service-card col-3">
+                        <i data-lucide="arrow-up-right" class="arrow" aria-hidden="true"></i>
+                        <div class="service-icon icon-blue">
+                            <i data-lucide="newspaper" aria-hidden="true"></i>
+                        </div>
+                        <div class="service-content">
+                            <h3>E-Journal</h3>
+                            <p>Jurnal akademik internasional</p>
+                        </div>
+                    </a>
+
+                    <!-- Repositori -->
+                    <a href="https://lib.usg.ac.id/opac" class="card service-card col-3">
+                        <i data-lucide="arrow-up-right" class="arrow" aria-hidden="true"></i>
+                        <div class="service-icon icon-cyan">
+                            <i data-lucide="search" aria-hidden="true"></i>
+                        </div>
+                        <div class="service-content">
+                            <h3>OPAC</h3>
+                            <p>Katalog buku fisik</p>
+                        </div>
+                    </a>
+
+                    <!-- Stats Widget with Mini Chart -->
+                    <div class="card stats-widget no-hover col-3">
+                        <div class="stats-widget-header">
+                            <div>
+                                <h3>Pengunjung</h3>
+                                <span class="dim-small">7 hari terakhir</span>
+                            </div>
+                            <span class="delta">
+                                <i data-lucide="trending-up" aria-hidden="true"></i>
+                                +12%
+                            </span>
+                        </div>
+                        <div>
+                            <div class="total mono">2.847</div>
+                            <div class="chart-bars">
+                                <div class="bar" style="height: 40%;"></div>
+                                <div class="bar" style="height: 65%;"></div>
+                                <div class="bar" style="height: 50%;"></div>
+                                <div class="bar" style="height: 80%;"></div>
+                                <div class="bar" style="height: 70%;"></div>
+                                <div class="bar" style="height: 90%;"></div>
+                                <div class="bar" style="height: 100%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Repositori Skripsi -->
+                    <a href="#" class="card service-card col-3">
+                        <i data-lucide="arrow-up-right" class="arrow" aria-hidden="true"></i>
+                        <div class="service-icon icon-orange">
+                            <i data-lucide="folder-open" aria-hidden="true"></i>
+                        </div>
+                        <div class="service-content">
+                            <h3>Repositori</h3>
+                            <p>Skripsi & karya akademik USG</p>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Announcement Ticker -->
+            <div class="bento ticker-wrapper">
+                <div class="card ticker-card col-12 no-hover">
+                    <span class="ticker-label">
+                        <i data-lucide="megaphone" aria-hidden="true"></i>
+                        Pengumuman
+                    </span>
+                    <span class="ticker-text">Pendaftaran anggota perpustakaan periode Genap 2026 telah dibuka — berlaku hingga 30 Juni 2026</span>
+                    <a href="#" class="ticker-cta">
+                        Detail
+                        <i data-lucide="arrow-right" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Section 02: Keanggotaan & Sirkulasi -->
+            <section class="services-section" id="keanggotaan">
+                <div class="section-title">
+                    <h2><span class="num">02</span>Keanggotaan & Sirkulasi</h2>
+                    <p>Layanan untuk anggota perpustakaan</p>
+                </div>
+
+                <div class="bento">
+                    <a href="#" class="card service-card col-3">
+                        <i data-lucide="arrow-up-right" class="arrow" aria-hidden="true"></i>
+                        <div class="service-icon icon-pink">
+                            <i data-lucide="user-plus" aria-hidden="true"></i>
+                        </div>
+                        <div class="service-content">
+                            <h3>Pendaftaran</h3>
+                            <p>Daftar sebagai anggota baru</p>
+                        </div>
+                    </a>
+
+                    <a href="#" class="card service-card col-3">
+                        <i data-lucide="arrow-up-right" class="arrow" aria-hidden="true"></i>
+                        <div class="service-icon icon-amber">
+                            <i data-lucide="id-card" aria-hidden="true"></i>
+                        </div>
+                        <div class="service-content">
+                            <h3>Kartu Digital</h3>
+                            <p>Update data & kartu anggota</p>
+                        </div>
+                    </a>
+
+                    <a href="#" class="card service-card col-3">
+                        <i data-lucide="arrow-up-right" class="arrow" aria-hidden="true"></i>
+                        <div class="service-icon icon-emerald">
+                            <i data-lucide="user-check" aria-hidden="true"></i>
+                        </div>
+                        <div class="service-content">
+                            <h3>Peminjaman</h3>
+                            <p>Pinjam buku secara mandiri</p>
+                        </div>
+                    </a>
+
+                    <a href="#" class="card service-card col-3">
+                        <i data-lucide="arrow-up-right" class="arrow" aria-hidden="true"></i>
+                        <div class="service-icon icon-rose">
+                            <i data-lucide="undo-2" aria-hidden="true"></i>
+                        </div>
+                        <div class="service-content">
+                            <h3>Pengembalian</h3>
+                            <p>Drop box otomatis 24 jam</p>
+                        </div>
+                    </a>
+
+                    <a href="#" class="card service-card col-4">
+                        <i data-lucide="arrow-up-right" class="arrow" aria-hidden="true"></i>
+                        <div class="service-icon icon-violet">
+                            <i data-lucide="edit-3" aria-hidden="true"></i>
+                        </div>
+                        <div class="service-content">
+                            <h3>Buku Tamu</h3>
+                            <p>Registrasi kunjungan harian non-anggota</p>
+                        </div>
+                    </a>
+
+                    <!-- Article Featured -->
+                    <a href="#" class="card article-card col-5">
+                        <div class="article-visual">
+                            <span class="article-tag">Berita</span>
+                        </div>
+                        <div class="article-body">
+                            <h3>Workshop literasi digital untuk mahasiswa baru</h3>
+                            <div class="article-meta">
+                                <span>2 hari lalu</span>
+                                <span>·</span>
+                                <span>3 menit baca</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="#" class="card service-card col-3">
+                        <i data-lucide="arrow-up-right" class="arrow" aria-hidden="true"></i>
+                        <div class="service-icon icon-blue">
+                            <i data-lucide="clipboard-check" aria-hidden="true"></i>
+                        </div>
+                        <div class="service-content">
+                            <h3>Survey</h3>
+                            <p>Kepuasan layanan</p>
+                        </div>
+                    </a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" id="tentang">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#beranda" class="logo">
+                        <div class="logo-mark">
+                            <i data-lucide="library" aria-hidden="true"></i>
+                        </div>
+                        <div class="logo-text">
+                            <span class="name">USG Library</span>
+                            <span class="sub">elib.usg.ac.id</span>
+                        </div>
+                    </a>
+                    <p>Pusat sumber pengetahuan dan informasi akademik Universitas Sunan Gresik. Mendukung pembelajaran, penelitian, dan pengabdian masyarakat.</p>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Layanan</h4>
+                    <ul>
+                        <li><a href="#">OPAC</a></li>
+                        <li><a href="#">Koleksi Digital</a></li>
+                        <li><a href="#">Repositori</a></li>
+                        <li><a href="#">E-Journal</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Tentang</h4>
+                    <ul>
+                        <li><a href="#">Profil</a></li>
+                        <li><a href="#">Tata Tertib</a></li>
+                        <li><a href="#">Pustakawan</a></li>
+                        <li><a href="#">Kontak</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Kunjungi</h4>
+                    <ul>
+                        <li class="footer-text">Senin – Jumat<br>08:00 – 21:00</li>
+                        <li class="footer-text">Sabtu<br>09:00 – 15:00</li>
+                        <li><a href="#">Lihat di Maps →</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <span class="copyright">© 2026 USG Library. All rights reserved.</span>
+
+                <a href="https://wa.me/628123536936" target="_blank" rel="noopener" class="dev-credit" aria-label="Hubungi developer via WhatsApp">
+                    <span class="dev-text">Design <span class="cross">×</span> Code by</span>
+                    <img src="assets/zandev-logo-footer.png" alt="ZanDev" class="dev-logo">
+                </a>
+
+                <div class="socials">
+                    <a href="#" aria-label="Instagram"><i data-lucide="instagram" aria-hidden="true"></i></a>
+                    <a href="#" aria-label="Facebook"><i data-lucide="facebook" aria-hidden="true"></i></a>
+                    <a href="#" aria-label="YouTube"><i data-lucide="youtube" aria-hidden="true"></i></a>
+                    <a href="#" aria-label="WhatsApp"><i data-lucide="message-circle" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js" defer></script>
+</body>
+</html>
